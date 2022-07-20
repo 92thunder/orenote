@@ -1,34 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { ChangeEvent, useCallback, useState } from 'react'
+import styled from '@emotion/styled'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [markdown, setMarkdown] = useState('')
+
+  const handleChangeMarkdown = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
+    setMarkdown(event.target.value)
+  }, [])
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <Container>
+      <Main>
+        <TextArea value={markdown} onChange={handleChangeMarkdown} />
+      </Main>
+      <Footer></Footer>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
+const Footer = styled.footer`
+  width: 100%;
+  height: 40px;
+`
+
+const Main = styled.section`
+  flex: 1;
+`
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: none;
+  resize: none;
+  line-height: 1.5;
+  font-size: 14px;
+  :focus {
+    outline: 1px #666 solid;
+  }
+`
 
 export default App
