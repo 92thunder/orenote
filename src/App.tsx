@@ -2,14 +2,12 @@ import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import './App.css'
 import { useMyText } from './hooks/useMyText'
-import { useSaveMyText } from './hooks/useSaveMyText'
 
 function App() {
-  const text = useMyText()
-  const saveText = useSaveMyText()
+  const { text, saveMyText } = useMyText()
   const handleChangeMarkdown = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
-    saveText(event.target.value)
-  }, [saveText])
+    saveMyText(event.target.value)
+  }, [saveMyText])
 
   return (
     <Container>

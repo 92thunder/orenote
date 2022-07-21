@@ -1,10 +1,18 @@
+import { useCallback } from "react"
+
 let text: string | undefined
 
-export const useMyText = (): string => {
+export const useMyText = () => {
 	if (text === undefined) {
 		throw chrome.storage.sync.get('text').then((value) => {
 			text = value['text']
 		})
 	}
-	return text
+
+	const saveMyText = useCallback((newText: string) => {
+		chrome.storage.sync.set({ 'text': newText })
+		text = newText
+	}, [text])
+
+	return { text, saveMyText }
 }
