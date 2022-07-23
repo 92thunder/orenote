@@ -4,9 +4,9 @@ import { Areas, LayoutArea } from "../types"
 import { AreaView } from "./AreaView"
 
 type Props = {
-  area: LayoutArea;
-  areas: Areas;
-};
+  area: LayoutArea
+  areas: Areas
+}
 
 export const AreaContainer: FC<Props> = ({ area, areas }) => {
   const childAreas = useMemo(

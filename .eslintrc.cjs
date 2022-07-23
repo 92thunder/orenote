@@ -4,8 +4,7 @@ module.exports = {
     es2021: true,
     webextensions: true,
   },
-  extends: [
-    'plugin:react/recommended',
+  extends: [ 'plugin:react/recommended',
     'standard',
     'prettier',
   ],
@@ -25,8 +24,12 @@ module.exports = {
   rules: {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error",
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': [
+      'error', {
+        'additionalHooks': '(useRecoilCallback|useRecoilTransaction_UNSTABLE)'
+      }
+    ],
     'semi': [
       'error',
       'never'
