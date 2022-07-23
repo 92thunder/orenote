@@ -15,7 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["chrome"]
+    "types": ["chrome"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
