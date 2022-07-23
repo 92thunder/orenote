@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
+    "immer": "^9.0.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recoil": "^0.7.4"

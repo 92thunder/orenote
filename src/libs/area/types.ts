@@ -9,7 +9,7 @@ export type LayoutArea = {
   id: AreaId
   type: 'layout'
   direction: 'vertical' | 'horizontal'
-  childAreas: AreaId[]
+  childAreas: [AreaId, AreaId]
 }
 
 export type Area = TextArea | LayoutArea

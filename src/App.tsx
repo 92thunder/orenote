@@ -2,17 +2,19 @@ import { useCallback, useEffect, useMemo } from 'react'
 import styled from '@emotion/styled'
 import './App.css'
 import { createTheme, IconButton, ThemeProvider } from '@mui/material'
-import { Splitscreen } from '@mui/icons-material'
+import { CancelPresentation, Splitscreen } from '@mui/icons-material'
 import {
   activeAreaState,
   areasState,
   AreaView,
+  closeArea,
   saveAreas,
   splitArea,
 } from './libs/area'
 import { useRecoilState, useRecoilValue } from 'recoil'
+import { deleteText } from './hooks/useMyText'
 
-function App() {
+export function App() {
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -36,6 +38,13 @@ function App() {
     setAreas((areas) =>
       splitArea(areas, { activeAreaId, direction: 'horizontal' })
     )
+  }, [activeAreaId, setAreas])
+  const handleClickCloseArea = useCallback(() => {
+    if (!activeAreaId) return
+    setAreas((areas) =>
+      closeArea(areas, activeAreaId)
+    )
+    deleteText(activeAreaId)
   }, [activeAreaId, setAreas])
 
   useEffect(() => {
@@ -63,6 +72,13 @@ function App() {
           >
             <SplitscreenHorizontal fontSize="inherit" />
           </IconButton>
+          <IconButton
+            onClick={handleClickCloseArea}
+            size="small"
+            disabled={!activeAreaId}
+          >
+            <CancelPresentation fontSize="inherit" />
+          </IconButton>
         </Footer>
       </Container>
     </ThemeProvider>
@@ -88,5 +104,3 @@ const Main = styled.section`
 const SplitscreenHorizontal = styled(Splitscreen)`
   transform: rotate(90deg);
 `
-
-export default App
