@@ -85,9 +85,10 @@ export const closeArea = (areas: Areas, activeAreaId: string): Areas => {
     const parentArea = getParentArea(areas, activeAreaId)
     if (!parentArea || parentArea.type === 'text') return
 
-    const silblingAreaId = parentArea.childAreas.find(areaId => areaId !== activeAreaId)
+    const silblingAreaId = parentArea.childAreas.find(
+      (areaId) => areaId !== activeAreaId
+    )
     if (!silblingAreaId) return
-
 
     if (parentArea.id === areas.rootId) {
       areas.rootId = silblingAreaId
@@ -102,13 +103,12 @@ export const closeArea = (areas: Areas, activeAreaId: string): Areas => {
       newChildAreas.splice(replaceIndex, 1, silblingAreaId)
       areas.areas[parentOfParentArea.id] = {
         ...parentOfParentArea,
-        childAreas: newChildAreas
+        childAreas: newChildAreas,
       }
     }
     delete areas.areas[parentArea.id]
     delete areas.areas[activeAreaId]
   })
-  
 }
 
 export const getAreas = async () => {
@@ -121,4 +121,3 @@ export const getAreas = async () => {
 export const saveAreas = (areas: Areas) => {
   return chrome.storage.sync.set({ areas }).then()
 }
-

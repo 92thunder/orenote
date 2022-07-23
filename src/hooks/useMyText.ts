@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-const textMap: Map<string, string> = new Map
+const textMap: Map<string, string> = new Map()
 const getTextKey = (areaId: string) => `text/${areaId}`
 
 export const deleteText = (areaId: string) => {
@@ -24,6 +24,6 @@ export const useMyText = (areaId: string) => {
     },
     [textKey]
   )
-  
+
   return { text: cachedText, saveMyText }
 }
