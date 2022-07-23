@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
 import { ChangeEvent, FC, useCallback } from 'react'
+import { useSetRecoilState } from 'recoil'
 import { useMyText } from '../../../hooks/useMyText'
+import { activeAreaState } from '../atoms'
 import { TextArea as TextAreaType } from '../types'
 
 type Props = {
@@ -9,11 +11,24 @@ type Props = {
 
 export const MyTextArea: FC<Props> = ({ area }) => {
   const { text, saveMyText } = useMyText()
-  const handleChangeMarkdown = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
-    saveMyText(event.target.value)
-  }, [saveMyText])
+  const handleChangeMarkdown = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      saveMyText(event.target.value)
+    },
+    [saveMyText]
+  )
   console.log(area)
-  return <TextArea defaultValue={text} onChange={handleChangeMarkdown} spellCheck={false} />
+  const setActiveArea = useSetRecoilState(activeAreaState)
+  return (
+    <TextArea
+      onFocus={() => {
+        setActiveArea(area.id)
+      }}
+      defaultValue={text}
+      onChange={handleChangeMarkdown}
+      spellCheck={false}
+    />
+  )
 }
 
 const TextArea = styled.textarea`

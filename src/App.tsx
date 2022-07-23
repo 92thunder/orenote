@@ -1,15 +1,15 @@
-import { useCallback, useMemo } from "react"
-import styled from "@emotion/styled"
-import "./App.css"
-import { createTheme, IconButton, ThemeProvider } from "@mui/material"
-import { Splitscreen } from "@mui/icons-material"
-import { areasState, AreaView } from "./libs/area"
-import { useRecoilState } from "recoil"
+import { useCallback, useMemo } from 'react'
+import styled from '@emotion/styled'
+import './App.css'
+import { createTheme, IconButton, ThemeProvider } from '@mui/material'
+import { Splitscreen } from '@mui/icons-material'
+import { activeAreaState, areasState, AreaView, splitArea } from './libs/area'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 function App() {
   const darkTheme = createTheme({
     palette: {
-      mode: "dark",
+      mode: 'dark',
     },
   })
 
@@ -17,36 +17,17 @@ function App() {
   const rootArea = useMemo(() => {
     return areas.areas[areas.rootId]
   }, [areas])
+  const activeAreaId = useRecoilValue(activeAreaState)
+
   const handleClickSplitVertical = useCallback(() => {
-    setAreas((oldAreas) => {
-      const targetId = 'root'
-      const targetArea = oldAreas.areas[targetId]
-      const newId1 = crypto.randomUUID()
-      const newId2 = crypto.randomUUID()
-      return {
-        ...oldAreas,
-        areas: {
-          ...oldAreas.areas,
-          [targetId]: {
-            ...targetArea,
-            type: 'layout',
-            direction: 'vertical',
-            childAreas: [newId1, newId2]
-          },
-          [newId1]: {
-            id: newId1,
-            type: 'text',
-            text: targetArea.type === 'text' ? targetArea.text : ''
-          },
-          [newId2]: {
-            id: newId2,
-            type: 'text',
-            text: '',
-          }
-        }
-      }
-    })
-  }, [setAreas])
+    if (!activeAreaId) return
+    setAreas((areas) => splitArea(areas, {activeAreaId, direction: 'vertical' }))
+  }, [activeAreaId, setAreas])
+  const handleClickSplitHorizontal = useCallback(() => {
+    if (!activeAreaId) return
+    setAreas((areas) => splitArea(areas, {activeAreaId, direction: 'horizontal' }))
+  }, [activeAreaId, setAreas])
+  console.log(activeAreaId)
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -55,10 +36,10 @@ function App() {
           <AreaView area={rootArea} areas={areas} />
         </Main>
         <Footer>
-          <IconButton onClick={handleClickSplitVertical} size="small">
+          <IconButton onClickCapture={handleClickSplitVertical} size="small" disabled={!activeAreaId}>
             <Splitscreen fontSize="inherit" />
           </IconButton>
-          <IconButton size="small">
+          <IconButton onClick={handleClickSplitHorizontal} size="small" disabled={!activeAreaId}>
             <SplitscreenHorizontal fontSize="inherit" />
           </IconButton>
         </Footer>
