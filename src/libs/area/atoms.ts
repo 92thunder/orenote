@@ -11,3 +11,8 @@ export const activeAreaState = atom<null | string>({
   key: 'ActiveAreaId',
   default: null,
 })
+
+export const editModeState = atom<boolean>({
+  key: 'EditMode',
+  default: false,
+})
