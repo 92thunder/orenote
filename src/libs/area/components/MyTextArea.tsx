@@ -51,6 +51,7 @@ const StyledEditorContent = styled(EditorContent)`
   border: 1px solid #444;
   resize: none;
   line-height: 1.5;
+  color: ${props => props.theme.palette.text.primary};
   .ProseMirror {
     padding: 0 8px;
     box-sizing: border-box;
