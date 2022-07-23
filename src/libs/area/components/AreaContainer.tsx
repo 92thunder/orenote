@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { FC, useMemo } from "react";
-import { Areas, LayoutArea } from "../types";
-import { AreaView } from "./AreaView";
+import styled from "@emotion/styled"
+import { FC, useMemo } from "react"
+import { Areas, LayoutArea } from "../types"
+import { AreaView } from "./AreaView"
 
 type Props = {
   area: LayoutArea;
@@ -11,8 +11,8 @@ type Props = {
 export const AreaContainer: FC<Props> = ({ area, areas }) => {
   const childAreas = useMemo(
     () => area.childAreas.map((areaId) => areas.areas[areaId]),
-    [areas, area]
-  );
+    [area.childAreas, areas.areas]
+  )
 
   return (
     <GridContainer>
@@ -20,11 +20,11 @@ export const AreaContainer: FC<Props> = ({ area, areas }) => {
         <AreaView key={area.id} area={area} areas={areas} />
       ))}
     </GridContainer>
-  );
-};
+  )
+}
 
 const GridContainer = styled.div`
   height: 100%;
   display: grid;
   grid-template-rows: 1fr 1fr;
-`;
+`

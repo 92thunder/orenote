@@ -7,7 +7,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'standard',
-    'prettier'
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -19,10 +19,17 @@ module.exports = {
   },
   plugins: [
     'react',
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'react-hooks',
   ],
   rules: {
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    'semi': [
+      'error',
+      'never'
+    ]
   }
 }

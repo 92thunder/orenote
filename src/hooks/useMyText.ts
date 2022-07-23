@@ -12,7 +12,7 @@ export const useMyText = () => {
   const saveMyText = useCallback((newText: string) => {
     chrome.storage.sync.set({ text: newText })
     text = newText
-  }, [text])
+  }, [])
 
   return { text, saveMyText }
 }
