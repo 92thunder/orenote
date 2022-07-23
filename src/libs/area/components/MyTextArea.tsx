@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { ChangeEvent, FC, useCallback } from "react";
+import styled from '@emotion/styled'
+import { ChangeEvent, FC, useCallback } from 'react'
 import { useMyText } from '../../../hooks/useMyText'
-import { TextArea as TextAreaType } from "../types";
+import { TextArea as TextAreaType } from '../types'
 
 type Props = {
   area: TextAreaType
@@ -12,8 +12,8 @@ export const MyTextArea: FC<Props> = ({ area }) => {
   const handleChangeMarkdown = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     saveMyText(event.target.value)
   }, [saveMyText])
-	console.log(area)
-	return <TextArea defaultValue={text} onChange={handleChangeMarkdown} spellCheck={false} />
+  console.log(area)
+  return <TextArea defaultValue={text} onChange={handleChangeMarkdown} spellCheck={false} />
 }
 
 const TextArea = styled.textarea`

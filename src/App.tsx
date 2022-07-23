@@ -6,28 +6,28 @@ import { Splitscreen } from '@mui/icons-material'
 import { Areas } from './libs'
 import { AreaView } from './libs/area'
 
-function App() {
+function App () {
   const darkTheme = createTheme({
     palette: {
       mode: 'dark'
     }
   })
 
-  const [areas, setAreas]  = useState<Areas>({
+  const [areas, setAreas] = useState<Areas>({
     rootId: 'root',
     areas: {
-      'root': {
+      root: {
         id: 'root',
         type: 'layout',
         direction: 'vertical',
         childAreas: ['A', 'B']
       },
-      'A': {
+      A: {
         id: 'A',
         type: 'text',
         text: ''
       },
-      'B': {
+      B: {
         id: 'B',
         type: 'text',
         text: ''

@@ -1,10 +1,5 @@
 type AreaId = string
 
-export type Areas = {
-	rootId: AreaId
-	areas: Record<AreaId, Area>
-}
-
 export type TextArea = {
 	id: AreaId
 	type: 'text'
@@ -19,3 +14,8 @@ export type LayoutArea = {
 }
 
 export type Area = TextArea | LayoutArea
+
+export type Areas = {
+	rootId: AreaId
+	areas: Record<AreaId, Area>
+}
