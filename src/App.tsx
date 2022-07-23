@@ -1,21 +1,62 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import styled from '@emotion/styled'
 import './App.css'
-import { useMyText } from './hooks/useMyText'
+import { createTheme, IconButton, ThemeProvider } from '@mui/material'
+import { Splitscreen } from '@mui/icons-material'
+import { Areas } from './libs'
+import { AreaView } from './libs/area'
 
 function App() {
-  const { text, saveMyText } = useMyText()
-  const handleChangeMarkdown = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
-    saveMyText(event.target.value)
-  }, [saveMyText])
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark'
+    }
+  })
+
+  const [areas, setAreas]  = useState<Areas>({
+    rootId: 'root',
+    areas: {
+      'root': {
+        id: 'root',
+        type: 'layout',
+        direction: 'vertical',
+        childAreas: ['A', 'B']
+      },
+      'A': {
+        id: 'A',
+        type: 'text',
+        text: ''
+      },
+      'B': {
+        id: 'B',
+        type: 'text',
+        text: ''
+      }
+    }
+  })
+  const rootArea = useMemo(() => {
+    return areas.areas[areas.rootId]
+  }, [areas])
+  const handleClickSplitVertical = useCallback(() => {
+
+  }, [])
 
   return (
-    <Container>
-      <Main>
-        <TextArea defaultValue={text} onChange={handleChangeMarkdown} />
-      </Main>
-      <Footer></Footer>
-    </Container>
+    <ThemeProvider theme={darkTheme}>
+      <Container>
+        <Main>
+          <AreaView area={rootArea} areas={areas} />
+        </Main>
+        <Footer>
+          <IconButton onClick={handleClickSplitVertical} size="small">
+            <Splitscreen fontSize="inherit" />
+          </IconButton>
+          <IconButton size="small">
+            <SplitscreenHorizontal fontSize="inherit" />
+          </IconButton>
+        </Footer>
+      </Container>
+    </ThemeProvider>
   )
 }
 
@@ -28,25 +69,15 @@ const Container = styled.div`
 
 const Footer = styled.footer`
   width: 100%;
-  height: 40px;
+  padding: 8px;
 `
 
 const Main = styled.section`
   flex: 1;
 `
 
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: none;
-  resize: none;
-  line-height: 1.5;
-  font-size: 14px;
-  :focus {
-    outline: 1px #666 solid;
-  }
+const SplitscreenHorizontal = styled(Splitscreen)`
+  transform: rotate(90deg)
 `
 
 export default App
