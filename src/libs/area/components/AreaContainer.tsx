@@ -1,4 +1,3 @@
-import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { FC, useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -21,7 +20,9 @@ export const AreaContainer: FC<Props> = ({ area }) => {
   return (
     <GridContainer $direction={area.direction}>
       {childAreas.map((area) => (
-        <AreaView key={area.id} area={area} areas={areas} />
+        <FlexItem key={area.id}>
+          <AreaView key={area.id} area={area} areas={areas} />
+        </FlexItem>
       ))}
     </GridContainer>
   )
@@ -29,15 +30,12 @@ export const AreaContainer: FC<Props> = ({ area }) => {
 
 const GridContainer = styled.div<{ $direction: 'vertical' | 'horizontal' }>`
   height: 100%;
-  display: grid;
-  ${(props) =>
-    props.$direction === 'vertical' &&
-    css`
-      grid-template-rows: 1fr 1fr;
-    `}
-  ${(props) =>
-    props.$direction === 'horizontal' &&
-    css`
-      grid-template-columns: 1fr 1fr;
-    `}
+  display: flex;
+  flex-direction: ${(props) => props.$direction === 'vertical' ? 'column' : 'row'};
+`
+
+const FlexItem = styled.div`
+  flex: 1;
+  max-height: 100%;
+  overflow: hidden;
 `

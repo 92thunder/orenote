@@ -1,6 +1,9 @@
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { ChangeEvent, FC, useCallback } from 'react'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { EditorContent, useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import { FC } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { useMyText } from '../../../hooks/useMyText'
 import { activeAreaState, editModeState } from '../atoms'
 import { TextArea as TextAreaType } from '../types'
@@ -11,38 +14,64 @@ type Props = {
 
 export const MyTextArea: FC<Props> = ({ area }) => {
   const editMode = useRecoilValue(editModeState)
-  const setActiveArea = useSetRecoilState(activeAreaState)
+  const [activeAreaId, setActiveArea] = useRecoilState(activeAreaState)
   const { text, saveMyText } = useMyText(area.id)
-  const handleChangeMarkdown = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement>) => {
-      saveMyText(event.target.value)
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: text,
+    editable: editMode,
+    onUpdate: ({ editor }) => {
+      saveMyText(editor.getHTML())
     },
-    [saveMyText]
-  )
+  }, [editMode])
   return (
-    <TextArea
-      onFocus={() => {
-        setActiveArea(area.id)
-      }}
-      defaultValue={text}
-      onChange={handleChangeMarkdown}
-      spellCheck={false}
-      readOnly={!editMode}
-    />
+    <Container $active={area.id === activeAreaId} onClick={() => setActiveArea(area.id)}>
+      <StyledEditorContent editor={editor} spellCheck={false} />
+    </Container>
   )
 }
 
-const TextArea = styled.textarea`
+const Container = styled.div<{ $active: boolean }>`
+  ${props => props.$active ? css`
+    border: 1px solid #1976d2;
+  `: css`
+    border: 1px solid #666;
+  `}
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 100%;
+  max-height: 100%;
+`
+
+
+const StyledEditorContent = styled(EditorContent)`
+  overflow-y: auto;
   width: 100%;
   height: 100%;
-  padding: 8px;
-  min-height: 0px;
-  box-sizing: border-box;
   border: 1px solid #444;
   resize: none;
   line-height: 1.5;
-  font-size: 16px;
-  :focus {
-    outline: 1px #777 solid;
+  .ProseMirror {
+    padding: 0 8px;
+    box-sizing: border-box;
+    :focus-visible {
+      outline: none;
+    }
+    height: calc(100% - 18px);
+  }
+  h1 {
+    font-size: 22px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+  p {
+    font-size: 16px;
+  }
+  ul, ol {
+    padding-left: 20px;
   }
 `
