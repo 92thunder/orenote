@@ -30,10 +30,14 @@ export const AreaContainer: FC<Props> = ({ area }) => {
 const GridContainer = styled.div<{ $direction: 'vertical' | 'horizontal' }>`
   height: 100%;
   display: grid;
-  ${props => props.$direction === 'vertical' && css`
-    grid-template-rows: 1fr 1fr;
-  `}
-  ${props => props.$direction === 'horizontal' && css`
-    grid-template-columns: 1fr 1fr;
-  `}
+  ${(props) =>
+    props.$direction === 'vertical' &&
+    css`
+      grid-template-rows: 1fr 1fr;
+    `}
+  ${(props) =>
+    props.$direction === 'horizontal' &&
+    css`
+      grid-template-columns: 1fr 1fr;
+    `}
 `

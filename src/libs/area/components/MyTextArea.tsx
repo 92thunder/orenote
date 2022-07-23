@@ -10,15 +10,14 @@ type Props = {
 }
 
 export const MyTextArea: FC<Props> = ({ area }) => {
-  const { text, saveMyText } = useMyText()
+  const setActiveArea = useSetRecoilState(activeAreaState)
+  const { text, saveMyText } = useMyText(area.id)
   const handleChangeMarkdown = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
       saveMyText(event.target.value)
     },
     [saveMyText]
   )
-  console.log(area)
-  const setActiveArea = useSetRecoilState(activeAreaState)
   return (
     <TextArea
       onFocus={() => {
@@ -35,6 +34,7 @@ const TextArea = styled.textarea`
   width: 100%;
   height: 100%;
   padding: 8px;
+  min-height: 0px;
   box-sizing: border-box;
   border: 1px solid #444;
   resize: none;

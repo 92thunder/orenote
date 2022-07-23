@@ -1,18 +1,23 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
-let text: string | undefined
+const texts: Record<string, string | undefined> = {}
+const getTextKey = (areaId: string) => `text/${areaId}`
 
-export const useMyText = () => {
-  if (text === undefined) {
-    throw chrome.storage.sync.get('text').then((value) => {
-      text = value.text
+export const useMyText = (areaId: string) => {
+  const textKey = useMemo(() => getTextKey(areaId), [areaId])
+
+  if (texts[textKey] === undefined) {
+    throw chrome.storage.sync.get(textKey).then((value) => {
+      texts[textKey] = value[textKey] || ''
     })
   }
 
-  const saveMyText = useCallback((newText: string) => {
-    chrome.storage.sync.set({ text: newText })
-    text = newText
-  }, [])
+  const saveMyText = useCallback(
+    (newText: string) => {
+      chrome.storage.sync.set({ [textKey]: newText })
+    },
+    [textKey]
+  )
 
-  return { text, saveMyText }
+  return { text: texts[textKey], saveMyText }
 }

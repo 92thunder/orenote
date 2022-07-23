@@ -3,7 +3,6 @@ type AreaId = string
 export type TextArea = {
   id: AreaId
   type: 'text'
-  text: string
 }
 
 export type LayoutArea = {

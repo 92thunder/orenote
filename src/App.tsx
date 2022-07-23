@@ -1,9 +1,15 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import styled from '@emotion/styled'
 import './App.css'
 import { createTheme, IconButton, ThemeProvider } from '@mui/material'
 import { Splitscreen } from '@mui/icons-material'
-import { activeAreaState, areasState, AreaView, splitArea } from './libs/area'
+import {
+  activeAreaState,
+  areasState,
+  AreaView,
+  saveAreas,
+  splitArea,
+} from './libs/area'
 import { useRecoilState, useRecoilValue } from 'recoil'
 
 function App() {
@@ -21,13 +27,20 @@ function App() {
 
   const handleClickSplitVertical = useCallback(() => {
     if (!activeAreaId) return
-    setAreas((areas) => splitArea(areas, {activeAreaId, direction: 'vertical' }))
+    setAreas((areas) =>
+      splitArea(areas, { activeAreaId, direction: 'vertical' })
+    )
   }, [activeAreaId, setAreas])
   const handleClickSplitHorizontal = useCallback(() => {
     if (!activeAreaId) return
-    setAreas((areas) => splitArea(areas, {activeAreaId, direction: 'horizontal' }))
+    setAreas((areas) =>
+      splitArea(areas, { activeAreaId, direction: 'horizontal' })
+    )
   }, [activeAreaId, setAreas])
-  console.log(activeAreaId)
+
+  useEffect(() => {
+    saveAreas(areas)
+  }, [areas])
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -36,10 +49,18 @@ function App() {
           <AreaView area={rootArea} areas={areas} />
         </Main>
         <Footer>
-          <IconButton onClickCapture={handleClickSplitVertical} size="small" disabled={!activeAreaId}>
+          <IconButton
+            onClickCapture={handleClickSplitVertical}
+            size="small"
+            disabled={!activeAreaId}
+          >
             <Splitscreen fontSize="inherit" />
           </IconButton>
-          <IconButton onClick={handleClickSplitHorizontal} size="small" disabled={!activeAreaId}>
+          <IconButton
+            onClick={handleClickSplitHorizontal}
+            size="small"
+            disabled={!activeAreaId}
+          >
             <SplitscreenHorizontal fontSize="inherit" />
           </IconButton>
         </Footer>
