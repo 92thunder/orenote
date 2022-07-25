@@ -53,7 +53,7 @@ export const HelpIcon: FC = () => {
               </TableRow>
               <TableRow>
                 <TableCell>Bold</TableCell>
-                <TableCell>(⌘ or Ctl) + B</TableCell>
+                <TableCell>(⌘ or Ctrl) + B</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Link</TableCell>
