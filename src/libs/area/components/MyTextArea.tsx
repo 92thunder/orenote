@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import Link from '@tiptap/extension-link'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { FC } from 'react'
@@ -18,7 +19,7 @@ export const MyTextArea: FC<Props> = ({ area }) => {
   const { text, saveMyText } = useMyText(area.id)
   const editor = useEditor(
     {
-      extensions: [StarterKit],
+      extensions: [StarterKit, Link],
       content: text,
       editable: editMode,
       onUpdate: ({ editor }) => {
