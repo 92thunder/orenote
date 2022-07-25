@@ -19,7 +19,14 @@ export const MyTextArea: FC<Props> = ({ area }) => {
   const { text, saveMyText } = useMyText(area.id)
   const editor = useEditor(
     {
-      extensions: [StarterKit, Link],
+      extensions: [
+        StarterKit.configure({
+          heading: {
+            levels: [1, 2, 3],
+          },
+        }),
+        Link,
+      ],
       content: text,
       editable: editMode,
       onUpdate: ({ editor }) => {

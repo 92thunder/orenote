@@ -37,6 +37,8 @@ const GridContainer = styled.div<{ $direction: 'vertical' | 'horizontal' }>`
 
 const FlexItem = styled.div`
   flex: 1;
-  max-height: 100%;
   overflow: hidden;
+  min-width: 200px;
+  min-height: 100px;
+  max-height: 100%;
 `
