@@ -4,13 +4,13 @@ import { IconButton, Tooltip } from '@mui/material'
 import {
   CancelPresentation,
   CheckCircle,
-  Edit,
   Splitscreen,
 } from '@mui/icons-material'
 import { closeArea, editModeState, splitArea } from '../libs/area'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { activeAreaState, areasState } from '../libs'
 import { deleteText } from '../hooks/useMyText'
+import { EditButton } from './EditButton'
 
 export const ControlButtons: FC = () => {
   const activeAreaId = useRecoilValue(activeAreaState)
@@ -62,11 +62,7 @@ export const ControlButtons: FC = () => {
           </Tooltip>
         </>
       ) : (
-        <Tooltip title="Edit" placement="right">
-          <IconButton onClick={() => setEditMode(true)}>
-            <Edit fontSize="inherit" />
-          </IconButton>
-        </Tooltip>
+        <EditButton onClick={() => setEditMode(true)} />
       )}
     </ControlButtonsContainer>
   )

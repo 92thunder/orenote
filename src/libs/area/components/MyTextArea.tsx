@@ -16,33 +16,41 @@ export const MyTextArea: FC<Props> = ({ area }) => {
   const editMode = useRecoilValue(editModeState)
   const [activeAreaId, setActiveArea] = useRecoilState(activeAreaState)
   const { text, saveMyText } = useMyText(area.id)
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: text,
-    editable: editMode,
-    onUpdate: ({ editor }) => {
-      saveMyText(editor.getHTML())
+  const editor = useEditor(
+    {
+      extensions: [StarterKit],
+      content: text,
+      editable: editMode,
+      onUpdate: ({ editor }) => {
+        saveMyText(editor.getHTML())
+      },
     },
-  }, [editMode])
+    [editMode]
+  )
   return (
-    <Container $active={area.id === activeAreaId} onClick={() => setActiveArea(area.id)}>
+    <Container
+      $active={area.id === activeAreaId}
+      onClick={() => setActiveArea(area.id)}
+    >
       <StyledEditorContent editor={editor} spellCheck={false} />
     </Container>
   )
 }
 
 const Container = styled.div<{ $active: boolean }>`
-  ${props => props.$active ? css`
-    border: 1px solid #1976d2;
-  `: css`
-    border: 1px solid #666;
-  `}
+  ${(props) =>
+    props.$active
+      ? css`
+          border: 1px solid #1976d2;
+        `
+      : css`
+          border: 1px solid #666;
+        `}
   overflow: hidden;
   box-sizing: border-box;
   height: 100%;
   max-height: 100%;
 `
-
 
 const StyledEditorContent = styled(EditorContent)`
   overflow-y: auto;
@@ -51,7 +59,7 @@ const StyledEditorContent = styled(EditorContent)`
   border: 1px solid #444;
   resize: none;
   line-height: 1.5;
-  color: ${props => props.theme.palette.text.primary};
+  color: ${(props) => props.theme.palette.text.primary};
   .ProseMirror {
     padding: 0 8px;
     box-sizing: border-box;
@@ -72,7 +80,8 @@ const StyledEditorContent = styled(EditorContent)`
   p {
     font-size: 16px;
   }
-  ul, ol {
+  ul,
+  ol {
     padding-left: 20px;
   }
 `

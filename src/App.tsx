@@ -51,10 +51,10 @@ const StyledAside = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: ${props => props.theme.palette.background.default};
+  background-color: ${(props) => props.theme.palette.background.default};
 `
 
 const Main = styled.section`
   flex: 1;
-  background-color: ${props => props.theme.palette.grey['800']};
+  background-color: ${(props) => props.theme.palette.grey['800']};
 `

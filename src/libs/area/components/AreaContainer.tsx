@@ -31,7 +31,8 @@ export const AreaContainer: FC<Props> = ({ area }) => {
 const GridContainer = styled.div<{ $direction: 'vertical' | 'horizontal' }>`
   height: 100%;
   display: flex;
-  flex-direction: ${(props) => props.$direction === 'vertical' ? 'column' : 'row'};
+  flex-direction: ${(props) =>
+    props.$direction === 'vertical' ? 'column' : 'row'};
 `
 
 const FlexItem = styled.div`
