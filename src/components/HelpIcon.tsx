@@ -40,7 +40,7 @@ export const HelpIcon: FC = () => {
               <TableRow>
                 <TableCell>Heading</TableCell>
                 <TableCell>
-                  <code># </code> at the biggining of a line
+                  <code># </code> at the beginning of a line
                   <br />
                   support 3 levels.
                 </TableCell>
@@ -48,7 +48,7 @@ export const HelpIcon: FC = () => {
               <TableRow>
                 <TableCell>Bullet List</TableCell>
                 <TableCell>
-                  <code>* </code>, <code>- </code> at the biggining of a line
+                  <code>* </code>, <code>- </code> at the beginning of a line
                 </TableCell>
               </TableRow>
               <TableRow>
