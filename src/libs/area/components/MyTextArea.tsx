@@ -25,7 +25,11 @@ export const MyTextArea: FC<Props> = ({ area }) => {
             levels: [1, 2, 3],
           },
         }),
-        Link,
+        Link.configure({
+          HTMLAttributes: {
+            target: undefined
+          }
+        }),
       ],
       content: text,
       editable: editMode,
