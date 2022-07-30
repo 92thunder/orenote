@@ -40,15 +40,15 @@ export const HelpIcon: FC = () => {
               <TableRow>
                 <TableCell>Heading</TableCell>
                 <TableCell>
-                  <code># </code> at the biggining of a line
+                  Hit <code>#</code> and space key at the beginning of a line.
                   <br />
-                  support 3 levels.
+                  Supports up to 3 levels.
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Bullet List</TableCell>
                 <TableCell>
-                  <code>* </code>, <code>- </code> at the biggining of a line
+                  Hit <code>*</code> or <code>-</code> and space key at the beginning of a line.
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -57,7 +57,7 @@ export const HelpIcon: FC = () => {
               </TableRow>
               <TableRow>
                 <TableCell>Link</TableCell>
-                <TableCell>Select text and Paste link</TableCell>
+                <TableCell>Select text and paste a link.</TableCell>
               </TableRow>
             </TableBody>
           </Table>
