@@ -27,7 +27,7 @@ export const MyTextArea: FC<Props> = ({ area }) => {
         }),
         Link.configure({
           HTMLAttributes: {
-            target: undefined
+            target: '_self',
           }
         }),
       ],
