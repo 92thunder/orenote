@@ -1,4 +1,4 @@
-import produce from 'immer'
+import { produce } from 'immer'
 import { Area, Areas, LayoutArea } from './types'
 
 const getParentArea = (areas: Areas, activeAreaId: string) => {
